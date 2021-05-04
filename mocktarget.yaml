@@ -3,7 +3,7 @@ info:
   description: 'OpenAPI Specification for the Apigee mock target service endpoint.'
   version: 1.0.0
   title: Mock Target API
-host: apigeex.dlhdemo.com
+host: apigeex.dlhdemo.com/hello-world
 schemes:
   - http
   - https
