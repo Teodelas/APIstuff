@@ -12,6 +12,8 @@ securityDefinitions:
     type: apiKey
     in: query
     name: apikey
+security:
+  - ApiKeyAuth: []
 paths:
   /:
     get:
