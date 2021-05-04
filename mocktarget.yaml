@@ -8,9 +8,10 @@ schemes:
   - http
   - https
 securityDefinitions:
-  basicAuth:
-    type: basic
-    description: HTTP Basic Authentication.
+  ApiKeyAuth:
+    type: apiKey
+    in: query
+    name: apikey
 paths:
   /:
     get:
