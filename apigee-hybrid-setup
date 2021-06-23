@@ -1,0 +1,47 @@
+TOKEN=$(gcloud auth print-access-token)
+export PROJECT_ID="teodlh-hybrid"
+export ORG_NAME=$PROJECT_ID
+ORG_DISPLAY_NAME="teodlh-hybrid"
+ORGANIZATION_DESCRIPTION="Hybrid org"
+export ANALYTICS_REGION="us-east1"
+export RUNTIMETYPE=HYBRID
+export ENV_NAME="eval"
+ENV_DISPLAY_NAME="teodlh-hybrid"
+ENV_DESCRIPTION="Hybrid org"
+export DOMAIN="nip.io"
+export ENV_GROUP="eval-env-group"
+
+gcloud config set project $PROJECT_ID
+gcloud services enable \
+    apigee.googleapis.com \
+    apigeeconnect.googleapis.com \
+    dns.googleapis.com \
+    pubsub.googleapis.com \
+    cloudresourcemanager.googleapis.com \
+    compute.googleapis.com \
+    container.googleapis.com --project $PROJECT_ID
+
+
+curl -H "Authorization: Bearer $TOKEN" -X POST -H "content-type:application/json" \
+  -d '{
+    "name":"'"$ORG_NAME"'",
+    "displayName":"'"$ORG_DISPLAY_NAME"'",
+    "description":"'"$ORGANIZATION_DESCRIPTION"'",
+    "runtimeType":"'"$RUNTIMETYPE"'",
+    "analyticsRegion":"'"$ANALYTICS_REGION"'"
+  }' \
+  "https://apigee.googleapis.com/v1/organizations?parent=projects/$PROJECT_ID"
+
+\\grab long running op ID from reponse above
+export LONG_RUNNING_OPERATION_ID="c09c19c3-e531-4086-bc37-92ac28472a89"
+
+curl -H "Authorization: Bearer $TOKEN" \
+  "https://apigee.googleapis.com/v1/organizations/$ORG_NAME/operations/$LONG_RUNNING_OPERATION_ID"
+
+gcloud compute addresses create hybrid-ip \
+    --global \
+    --ip-version IPV4
+
+\\GKE Setup
+export CLUSTER_NAME=teodlh-apigee-hybrid
+
