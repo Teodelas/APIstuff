@@ -1,5 +1,5 @@
 TOKEN=$(gcloud auth print-access-token)
-export PROJECT_ID="teodlh-hybrid"
+export PROJECT_ID="teodlh-hybrid-319313"
 export ORG_NAME=$PROJECT_ID
 ORG_DISPLAY_NAME="teodlh-hybrid"
 ORGANIZATION_DESCRIPTION="Hybrid org"
@@ -43,5 +43,43 @@ gcloud compute addresses create hybrid-ip \
     --ip-version IPV4
 
 \\GKE Setup
-export CLUSTER_NAME=teodlh-apigee-hybrid
+export PROJECT_ID="teodlh-hybrid-319313"
+export CLUSTER_NAME=apiegeex-hybrid
+export CLUSTER_REGION=us-east1
+export NODE_LOCATION=us-east1-b
+
+\\configure console with default values
+gcloud init
+
+//Create cluster
+gcloud container clusters create $CLUSTER_NAME \
+    --region $CLUSTER_REGION \
+    --node-locations $NODE_LOCATION \
+    --release-channel stable
+
+//Install Cert Manager
+kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v1.2.0/cert-manager.yaml
+
+//Validate install
+./install_asm \
+  --project_id $PROJECT_ID \
+  --cluster_name $CLUSTER_NAME \
+  --cluster_location $NODE_LOCATION \
+  --mode install \
+  --output_dir . \
+  --only_validate
+
+//Customize /asm/istio/istio-operator.yaml
+https://cloud.google.com/apigee/docs/hybrid/v1.5/install-asm#text-to-copy_1 
+
+
+//Install using custom overlay
+./install_asm \
+  --project_id $PROJECT_ID \
+  --cluster_name $CLUSTER_NAME \
+  --cluster_location $NODE_LOCATION \
+  --mode install \
+  --enable_apis \
+  --custom_overlay ~/asm/istio/istio-operator.yaml
+
 
