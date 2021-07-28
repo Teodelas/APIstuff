@@ -1,0 +1,44 @@
+Deploy Jenkins
+Configure dependencies:
+SSH into VM
+
+Install node version manager (nvm):
+- https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
+
+Install node.js and npm
+- nvm install node
+
+Maven:
+- Download maven: https://maven.apache.org/download.cgi
+  - cd /opt
+  - wget https://mirror.olnevhost.net/pub/apache/maven/maven-3/3.8.1/binaries/apache-maven-3.8.1-bin.tar.gz
+- Install maven: https://maven.apache.org/install.html
+  - tar xzvf apache-maven-3.8.1-bin.tar.gz
+  - export PATH=/opt/apache-maven-3.8.1/bin:$PATH
+  
+  Setup Github repo
+  - Create a github repo:https://docs.github.com/en/get-started/quickstart/create-a-repo 
+  - Set Github url: export GIT_URL=https://github.com/username/repo.git
+  - cd $home
+  - mkdir cicd-demo
+  - cd cicd-demo
+  - git init
+  - git remote add origin $GIT_URL
+  - git add .
+  - git commit -m "initial commit"
+  
+  Copy CICD Reference implementation
+  - mkdir devrel
+  - git pull https://github.com/apigee/devrel.git
+  - cp ~/devrel/references/cicd-pipeline/. ~/cicd-demo/reponame/. -a -r
+  - cd ~/cicd-demo/reponame
+  - push add .
+  - git commit -m "devrel cicd reference"
+  - git push
+  
+  Configure Jenkins
+  
+  
+  
+
+
