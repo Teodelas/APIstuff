@@ -28,8 +28,10 @@
   $ git commit -m "initial commit"`
   
 ## Copy CICD Reference implementation
-` $ mkdir devrel \
+` $ mkdir devrel
+
   $ git pull https://github.com/apigee/devrel.git
+  
   $ cp ~/devrel/references/cicd-pipeline/. ~/cicd-demo/reponame/. -a -r
   $ cd ~/cicd-demo/reponame
   $ git add .
