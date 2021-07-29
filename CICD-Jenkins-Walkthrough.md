@@ -61,14 +61,15 @@
  
 ## Add Plugins
 1. Go to http://35.196.27.63/pluginManager/
-1. Click on Available, and search for Github
+1. Click on Available, and search for Github and Pipeline:Multibranch
 1. Check off Github and click on 'Install without restart'
 
 ## Configure global variables
 1. Go to http://<jenkins ip / url>/configure
 1. Scroll down to Global properties and check off Environment variables
-	1. Add PATH+EXTRA as `/opt/apache-maven-3.8.1/bin`
-	1. APIGEE_ENV, APIGEE_ORG, and APIGEE_URL as environment variables and set the values to your Apigee org a
+	1. Add PATH+EXTRA as */opt/apache-maven-3.8.1/bin*
+	1. Add ID_File as */path-to-id-file.json*
+	3. APIGEE_ENV, APIGEE_ORG, and APIGEE_URL as environment variables and set the values to your Apigee org a
   
 ## Configure Jenkinsfile 
 This configuration sets the maven profile to use Apigee X management API (GoogleAPI) and authenticate using an the IAM service account created previously
