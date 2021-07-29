@@ -13,7 +13,7 @@
   wget https://mirror.olnevhost.net/pub/apache/maven/maven-3/3.8.1/binaries/apache-maven-3.8.1-bin.tar.gz
 - Install maven: https://maven.apache.org/install.html
   - tar xzvf apache-maven-3.8.1-bin.tar.gz
-  - export PATH=/opt/apache-maven-3.8.1/bin:$PATH
+  - note the path to mvn should now be: /opt/apache-maven-3.8.1/bin
   
 # Setup Github repo
 1. Create a github repo:https://docs.github.com/en/get-started/quickstart/create-a-repo 
@@ -55,9 +55,9 @@
 1. SSH into Jenkins VM
 1. gcloud auth activate-service-account $SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com --key-file=./jenkins-key-file.json --project=$PROJECT_ID
   
-#Configure Jenkins
+# Configure Jenkins
  
-## 
+## Add Plugins
 1. Go to http://35.196.27.63/pluginManager/
 1. Click on Available, and search for Github
 1. Check off Github and click on 'Install without restart'
@@ -65,7 +65,8 @@
 ## Configure global variables
 1. Go to http://<jenkins ip / url>/configure
 1. Scroll down to Global properties and check off Environment variables
-1. Add APIGEE_ENV, APIGEE_ORG, and APIGEE_URL as environment variables and set the values to your Apigee org
+	1. Add PATH+EXTRA as `/opt/apache-maven-3.8.1/bin`
+	1. APIGEE_ENV, APIGEE_ORG, and APIGEE_URL as environment variables and set the values to your Apigee org a
   
 ## Configure Jenkinsfile 
 This configuration sets the maven profile to use Apigee X management API (GoogleAPI) and authenticate using an the IAM service account created previously
