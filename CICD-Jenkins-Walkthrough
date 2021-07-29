@@ -36,7 +36,51 @@ Maven:
   - git commit -m "devrel cicd reference"
   - git push
   
-  Configure Jenkins
+#Configure GCP IAM
+
+## Create service account for Jenkins
+1. export SERVICE_ACCOUNT_ID=jenkins-apigee-service-acocunt
+1. export PROJECT_ID=teodlh-apigeex
+1. gcloud iam service-accounts create $SERVICE_ACCOUNT_ID \
+    --description="Jenkins service account" \
+    --display-name="jenkins-appigee-service-account"   
+1. gcloud projects add-iam-policy-binding $PROJECT_ID \
+    --member="serviceAccount:$SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com" \
+    --role="roles/apigee.admin"
+*To use a different role, see roles available here or create a custom role: https://cloud.google.com/iam/docs/understanding-roles#apigee-roles*
+1. gcloud iam service-accounts keys create ./jenkins-key-file.json \
+    --iam-account=$SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com
+    
+## Activate service account on Jenkins VM
+1. SSH into Jenkins VM
+1. gcloud auth activate-service-account $SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com --key-file=./jenkins-key-file.json --project=$PROJECT_ID
+  
+#Configure Jenkins
+ 
+## 
+1. Go to http://35.196.27.63/pluginManager/
+1. Click on Available, and search for Github
+1. Check off Github and click on 'Install without restart'
+
+## Configure global variables
+1. Go to http://<jenkins ip / url>/configure
+1. Scroll down to Global properties and check off Environment variables
+1. Add APIGEE_ENV and APIGEE_ORG as environment variables and set the values to your Apigee org
+  
+## Configure Jenkinsfile 
+This configuration sets the maven profile to use Apigee X management API (GoogleAPI) and authenticate using an the IAM service account created previously
+1. In the GitHub repo, go to the file /ci-config/jenkins/Jenkinsfile
+1. Find the section that begins with *mvn clean install* and replace it with the code below
+`mvn clean install \
+                -P"googleapi" \
+                -Denv="${env.APIGEE_ENV}" \
+                -Dorg="${env.APIGEE_ORG}" \
+                -Durl="apigeex-eval.dlhdemo.com" \
+                -Dbearer="$(gcloud auth print-access-token)" \
+                -Ddeployment.suffix="${env.APIGEE_DEPLOYMENT_SUFFIX}" \
+                -Ddeployment.description="Jenkins Build: ${env.BUILD_TAG} Author: ${env.AUTHOR_EMAIL}"
+`
+
   
   
   
