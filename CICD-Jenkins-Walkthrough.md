@@ -65,7 +65,7 @@
 ## Configure global variables
 1. Go to http://<jenkins ip / url>/configure
 1. Scroll down to Global properties and check off Environment variables
-1. Add APIGEE_ENV and APIGEE_ORG as environment variables and set the values to your Apigee org
+1. Add APIGEE_ENV, APIGEE_ORG, and APIGEE_URL as environment variables and set the values to your Apigee org
   
 ## Configure Jenkinsfile 
 This configuration sets the maven profile to use Apigee X management API (GoogleAPI) and authenticate using an the IAM service account created previously
@@ -76,11 +76,24 @@ This configuration sets the maven profile to use Apigee X management API (Google
                 -P"googleapi" \
                 -Denv="${env.APIGEE_ENV}" \
                 -Dorg="${env.APIGEE_ORG}" \
-                -Durl="apigeex-eval.dlhdemo.com" \
+                -Durl="${env.APIGEE_URL}" \
                 -Dbearer="$(gcloud auth print-access-token)" \
                 -Ddeployment.suffix="${env.APIGEE_DEPLOYMENT_SUFFIX}" \
                 -Ddeployment.description="Jenkins Build: ${env.BUILD_TAG} Author: ${env.AUTHOR_EMAIL}"
 `
+## Configure Maven
+This configuration sets the maven profile to use custom apigee url
+1. Edit pom.xml
+1. Find the `<properties>` section
+1. Add `<apigee.url>${url}</apigee.url>`
+1. Find the plugin section `<groupId>com.google.code.maven-replacer-plugin</groupId>`
+1. Replace 
+ ` 						<token>org-env.apigee.net</token>
+							<value>${apigee.org}-${apigee.env}.apigee.net</value>`
+   with 
+  ` 					<token>org-env.apigee.net</token>
+							<value>${apigee.url}</value>`  
+1. 
 
   
   
