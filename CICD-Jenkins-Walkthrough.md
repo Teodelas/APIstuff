@@ -5,6 +5,7 @@
 ## NVM & nodejs
 1. Install node version manager (nvm) following [these](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) instructions
 1. Install node.js and npm
+
 `$ nvm install node`
 ## Maven:
 1. Download maven from [here](https://maven.apache.org/download.cgi)
@@ -70,6 +71,7 @@
 This configuration sets the maven profile to use Apigee X management API (GoogleAPI) and authenticate using an the IAM service account created previously
 1. In the GitHub repo, go to the file /ci-config/jenkins/Jenkinsfile
 1. Find the section that begins with *mvn clean install* and replace it with the code below
+
 `mvn clean install \
                 -P"googleapi" \
                 -Denv="${env.APIGEE_ENV}" \
