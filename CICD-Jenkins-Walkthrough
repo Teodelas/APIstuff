@@ -36,7 +36,7 @@ Maven:
   - git commit -m "devrel cicd reference"
   - git push
   
-#Configure GCP IAM
+# Configure GCP IAM
 
 ## Create service account for Jenkins
 1. export SERVICE_ACCOUNT_ID=jenkins-apigee-service-acocunt
