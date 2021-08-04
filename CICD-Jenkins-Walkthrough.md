@@ -61,7 +61,7 @@
  
 ## Add Plugins
 1. Go to http://35.196.27.63/pluginManager/
-1. Click on Available, and search for Github and Pipeline:Multibranch
+1. Click on Available, and install: Pipeline:Multibranch, cucumber-reports:5.5.0, git:4.8.0, html publisher, junit:1.51, matrix-project:1.19, script-security:1.77, token-macro:2.15, workflow-step-api:2.24, configuration-as-code:1.51, workflow-aggregator:2.6, workflow-multibranch:2.22
 1. Check off Github and click on 'Install without restart'
 
 ## Configure global variables
