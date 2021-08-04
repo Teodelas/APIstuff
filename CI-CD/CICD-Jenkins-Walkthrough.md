@@ -177,3 +177,6 @@ with
 
 ![Build Now](./images/build-now.png)
 
+8. The status page will show the stages of the build and the result
+
+![Build Statu](./images/build-status.png)
