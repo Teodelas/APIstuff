@@ -6,7 +6,7 @@
 
 ## Install nodejs, npm, and Maven
 nodejs, npm, and maven are needed by the build process. Install them using the commands below.
-
+	
 	$sudo apt install nodejs
  	$sudo apt install npm
  	$sduo apt install maven
@@ -16,40 +16,45 @@ Next we'll create our own Github repo and copy a working CICD reference implemen
 
 1. Create a github repo:https://docs.github.com/en/get-started/quickstart/create-a-repo 
 1. Setup Git repo locally
-` $ export GIT_URL=https://github.com/username/repo.git
-  $ cd $home
-  $ mkdir cicd-demo
-  $ cd cicd-demo
-  $ git init
-  $ git remote add origin $GIT_URL
-  $ git add .
-  $ git commit -m "initial commit"`
+`
+	$ export GIT_URL=https://github.com/username/repo.git
+	$ cd $home
+	$ mkdir cicd-demo
+	$ cd cicd-demo
+	$ git init
+	$ git remote add origin $GIT_URL
+	$ git add .
+	$ git commit -m "initial commit"`
   
 ## Copy CICD Reference implementation
-` $ mkdir devrel
-  $ git pull https://github.com/apigee/devrel.git
-  $ cp ~/devrel/references/cicd-pipeline/. ~/cicd-demo/reponame/. -a -r
-  $ cd ~/cicd-demo/reponame
-  $ git add .
-  $ git commit -m "Adding devrel cicd reference"
-  $ git push`
+
+	$ mkdir devrel
+	$ git pull https://github.com/apigee/devrel.git
+	$ cp ~/devrel/references/cicd-pipeline/. ~/cicd-demo/reponame/. -a -r
+	$ cd ~/cicd-demo/reponame
+	$ git add .
+	$ git commit -m "Adding devrel cicd reference"
+	$ git push`
   
 # Configure GCP IAM
-Next, we'll configure a service account with permissions to Apigee to be used by the build proces
-## Create service account for Jenkins
-1. export SERVICE_ACCOUNT_ID=jenkins-apigee-service-acocunt
-1. export PROJECT_ID=teodlh-apigeex
-1. gcloud iam service-accounts create $SERVICE_ACCOUNT_ID \
-    --description="Jenkins service account" \
-    --display-name="jenkins-appigee-service-account"   
-1. gcloud projects add-iam-policy-binding $PROJECT_ID \
-    --member="serviceAccount:$SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com" \
-    --role="roles/apigee.admin"
+Next, we'll configure a service account with permissions to Apigee to be used by the build proces. Perform the steps below form a CLI that you've logged into. 
+1. Create service account for Jenkins
+`
+	$ export SERVICE_ACCOUNT_ID=jenkins-apigee-service-acocunt
+	$ export PROJECT_ID=teodlh-apigeex
+	$ gcloud iam service-accounts create $SERVICE_ACCOUNT_ID \
+   	--description="Jenkins service account" \
+   	--display-name="jenkins-appigee-service-account"   
+	$ gcloud projects add-iam-policy-binding $PROJECT_ID \
+  	 --member="serviceAccount:$SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com" \
+   	 --role="roles/apigee.admin" `
 *To use a different role, see roles available ![here](https://cloud.google.com/iam/docs/understanding-roles#apigee-roles) or create a ![custom role](https://cloud.google.com/iam/docs/understanding-custom-roles) *
-1. gcloud iam service-accounts keys create ./jenkins-key-file.json \
-    --iam-account=$SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com
+1. Create a ![key-file](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) so that the Service Account can be activated on a VM
+`
+	gcloud iam service-accounts keys create ./jenkins-key-file.json \
+    	--iam-account=$SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com `
     
-## Activate service account on Jenkins VM
+1. Activate service account on Jenkins VM
 1. SSH into Jenkins VM
 1. gcloud auth activate-service-account $SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com --key-file=./jenkins-key-file.json --project=$PROJECT_ID
   
@@ -71,8 +76,8 @@ Next, we'll configure a service account with permissions to Apigee to be used by
 This configuration sets the maven profile to use Apigee X management API (GoogleAPI) and authenticate using an the IAM service account created previously
 1. In the GitHub repo, go to the file /ci-config/jenkins/Jenkinsfile
 1. Find the section that begins with *mvn clean install* and replace it with the code below
-
-`mvn clean install \
+`
+	mvn clean install \
                 -P"googleapi" \
                 -Denv="${env.APIGEE_ENV}" \
                 -Dorg="${env.APIGEE_ORG}" \
@@ -88,12 +93,15 @@ This configuration sets the maven profile to use custom apigee url
 1. Add `<apigee.url>${url}</apigee.url>`
 1. Find the plugin section `<groupId>com.google.code.maven-replacer-plugin</groupId>`
 1. Replace 
- ` 						<token>org-env.apigee.net</token>
-							<value>${apigee.org}-${apigee.env}.apigee.net</value>`
-   with 
-  ` 					<token>org-env.apigee.net</token>
-							<value>${apigee.url}</value>`  
-1. 
+`
+ 	<token>org-env.apigee.net</token>
+		<value>${apigee.org}-${apigee.env}.apigee.net</value>`
+		
+with 
+` 					
+	<token>org-env.apigee.net</token>
+		<value>${apigee.url}</value>`  
+
 
   
   
