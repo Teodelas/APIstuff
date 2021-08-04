@@ -2,8 +2,7 @@
 1. Deploy Jenkins from [GCP Marketplace](https://pantheon.corp.google.com/marketplace/product/click-to-deploy-images/jenkins)
 	1. A sample production scale ready deployment of Jenkins can be found [here](https://cloud.google.com/architecture/using-jenkins-for-distributed-builds-on-compute-engine)
 1. After the VM is successfully deployed, SSH into VM. GCP console provides an easy way to do this:
-![SSH]
-(./images/ssh-vm.png)
+![SSH](./images/ssh-vm.png)
 
 ## Install nodejs, npm, and Maven
 1. sudo apt install nodejs
