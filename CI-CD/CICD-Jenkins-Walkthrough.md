@@ -7,9 +7,9 @@
 ## Install nodejs, npm, and Maven
 nodejs, npm, and maven are needed by the build process. Install them using the commands below.
 
-	`$sudo apt install nodejs
+	$sudo apt install nodejs
  	$sudo apt install npm
- 	$sduo apt install maven`
+ 	$sduo apt install maven
   
 # Setup Github repo
 Next we'll create our own Github repo and copy a working CICD reference implementation into it.
