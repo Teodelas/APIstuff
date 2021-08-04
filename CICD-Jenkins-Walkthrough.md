@@ -2,18 +2,10 @@
 1. Deploy Jenkins from [GCP Marketplace](https://pantheon.corp.google.com/marketplace/product/click-to-deploy-images/jenkins)
   1. A sample deployment can be found [here](https://cloud.google.com/architecture/using-jenkins-for-distributed-builds-on-compute-engine)
 1. After the VM is successfully deployed, SSH into VM
-## NVM & nodejs
-1. Install node version manager (nvm) following [these](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) instructions
-1. Install node.js and npm
-
-`$ nvm install node`
-## Maven:
-1. Download maven from [here](https://maven.apache.org/download.cgi)
-  `$ cd /opt
-  wget https://mirror.olnevhost.net/pub/apache/maven/maven-3/3.8.1/binaries/apache-maven-3.8.1-bin.tar.gz
-- Install maven: https://maven.apache.org/install.html
-  - tar xzvf apache-maven-3.8.1-bin.tar.gz
-  - note the path to mvn should now be: /opt/apache-maven-3.8.1/bin
+## Install nodejs, npm, and Maven
+1. sudo apt install nodejs
+2. sudo apt install npm
+3. sduo apt install maven
   
 # Setup Github repo
 1. Create a github repo:https://docs.github.com/en/get-started/quickstart/create-a-repo 
