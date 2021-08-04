@@ -97,7 +97,6 @@ $ vi ./jenkins-key-file.json
 1. Go to http://<jenkins ip / url>/pluginManager/
 1. Click on Available, and install the plugins below. 
     1. Pipeline
-    2. Pipeline:Multibranch
     3. cucumber reports
     4. git
     5. html publisher
@@ -158,4 +157,18 @@ with
 
 
 # Create Jenkins Deployment
-1.
+1. In the Jenkins web interface, click on New Item
+![New Item](./images/jenkins-new-item.png)
+2. Enter a name, select 'Pipeline', and click OK
+![pipeline](./images/jenkins-pipeline.png)
+3. Under **Pipeline** set
+   1. **Definition**: Pipeline script from SCM
+   2. **SCM**: Git
+   3. **Repository URL**: path to the Github repo created above
+	![Pipeline Config](./images/Pipeline-Config.png)
+   4. **Script Path**: ci-config/jenkins/Jenkinsfile
+	![Jenkinsfile file](./images/script-path.png)
+6. Scroll down and click **Save**
+7. Back at the Apigee-Pipeline status, click on **Build Now**
+![Build Now](./images/build-now.png)
+
