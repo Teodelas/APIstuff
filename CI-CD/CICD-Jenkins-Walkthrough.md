@@ -41,6 +41,7 @@ Next we'll create our own Github repo and copy a working CICD reference implemen
 Next, we'll configure a service account with permissions to Apigee to be used by the build proces. Perform the steps below form a CLI that you've logged into. 
 1. Create service account for Jenkins
 `
+	$ gcloud auth login
 	$ export SERVICE_ACCOUNT_ID=jenkins-apigee-service-acocunt
 	$ export PROJECT_ID=teodlh-apigeex
 	$ gcloud iam service-accounts create $SERVICE_ACCOUNT_ID \
@@ -56,9 +57,11 @@ Next, we'll configure a service account with permissions to Apigee to be used by
     	--iam-account=$SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com `
     
 1. Activate service account on Jenkins VM
-1. SSH into Jenkins VM
-1. gcloud auth activate-service-account $SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com --key-file=./jenkins-key-file.json --project=$PROJECT_ID
-  
+
+`
+	$gcloud auth activate-service-account $SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com --key-file=./jenkins-key-file.json --project=$PROJECT_ID
+`
+
 # Configure Jenkins
  
 ## Add Plugins
@@ -69,16 +72,16 @@ Next, we'll configure a service account with permissions to Apigee to be used by
 ## Configure global variables
 1. Go to http://<jenkins ip / url>/configure
 1. Scroll down to Global properties and check off Environment variables
-	1. Add PATH+EXTRA as */opt/apache-maven-3.8.1/bin*
 	1. Add ID_File as */path-to-id-file.json*
-	3. APIGEE_ENV, APIGEE_ORG, and APIGEE_URL as environment variables and set the values to your Apigee org a
+	3. APIGEE_ENV, APIGEE_ORG, and APIGEE_URL as environment variables and set the values to your Apigee org 
   
 ## Configure Jenkinsfile 
 This configuration sets the maven profile to use Apigee X management API (GoogleAPI) and authenticate using an the IAM service account created previously
 1. In the GitHub repo, go to the file /ci-config/jenkins/Jenkinsfile
 1. Find the section that begins with *mvn clean install* and replace it with the code below
+
 `
-	mvn clean install \
+	$mvn clean install \
                 -P"googleapi" \
                 -Denv="${env.APIGEE_ENV}" \
                 -Dorg="${env.APIGEE_ORG}" \
@@ -87,6 +90,7 @@ This configuration sets the maven profile to use Apigee X management API (Google
                 -Ddeployment.suffix="${env.APIGEE_DEPLOYMENT_SUFFIX}" \
                 -Ddeployment.description="Jenkins Build: ${env.BUILD_TAG} Author: ${env.AUTHOR_EMAIL}"
 `
+
 ## Configure Maven
 This configuration sets the maven profile to use custom apigee url
 1. Edit pom.xml
