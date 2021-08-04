@@ -16,6 +16,7 @@ Next we'll create our own Github repo and copy a working CICD reference implemen
 
 1. Create a github repo:https://docs.github.com/en/get-started/quickstart/create-a-repo 
 1. Setup Git repo locally
+
 `
 	$ export GIT_URL=https://github.com/username/repo.git
 	$ cd $home
