@@ -1,15 +1,19 @@
 # Deploy Jenkins and Configure Jenkins
 1. Deploy Jenkins from [GCP Marketplace](https://pantheon.corp.google.com/marketplace/product/click-to-deploy-images/jenkins)
 	1. A sample production scale ready deployment of Jenkins can be found [here](https://cloud.google.com/architecture/using-jenkins-for-distributed-builds-on-compute-engine)
-1. After the VM is successfully deployed, SSH into VM. GCP console provides an easy way to do this:
+1. After the VM is successfully deployed, SSH into the VM. GCP console provides an easy way to do this from the Compute Engine view
 	1. ![SSH](./images/ssh-vm.png)
 
 ## Install nodejs, npm, and Maven
-1. sudo apt install nodejs
-2. sudo apt install npm
-3. sduo apt install maven
+nodejs, npm, and maven are needed by the build process. Install them using the commands below.
+
+`$sudo apt install nodejs
+ $sudo apt install npm
+ $sduo apt install maven`
   
 # Setup Github repo
+Next we'll create our own Github repo and copy a working CICD reference implementation into it.
+
 1. Create a github repo:https://docs.github.com/en/get-started/quickstart/create-a-repo 
 1. Setup Git repo locally
 ` $ export GIT_URL=https://github.com/username/repo.git
@@ -23,17 +27,15 @@
   
 ## Copy CICD Reference implementation
 ` $ mkdir devrel
-
   $ git pull https://github.com/apigee/devrel.git
-  
   $ cp ~/devrel/references/cicd-pipeline/. ~/cicd-demo/reponame/. -a -r
   $ cd ~/cicd-demo/reponame
   $ git add .
-  $ git commit -m "devrel cicd reference"
+  $ git commit -m "Adding devrel cicd reference"
   $ git push`
   
 # Configure GCP IAM
-
+Next, we'll configure a service account with permissions to Apigee to be used by the build proces
 ## Create service account for Jenkins
 1. export SERVICE_ACCOUNT_ID=jenkins-apigee-service-acocunt
 1. export PROJECT_ID=teodlh-apigeex
@@ -43,7 +45,7 @@
 1. gcloud projects add-iam-policy-binding $PROJECT_ID \
     --member="serviceAccount:$SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com" \
     --role="roles/apigee.admin"
-*To use a different role, see roles available here or create a custom role: https://cloud.google.com/iam/docs/understanding-roles#apigee-roles*
+*To use a different role, see roles available ![here](https://cloud.google.com/iam/docs/understanding-roles#apigee-roles) or create a ![custom role](https://cloud.google.com/iam/docs/understanding-custom-roles) *
 1. gcloud iam service-accounts keys create ./jenkins-key-file.json \
     --iam-account=$SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com
     
