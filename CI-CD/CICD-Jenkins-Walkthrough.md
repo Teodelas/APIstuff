@@ -14,7 +14,7 @@ nodejs, npm, and maven are needed by the build process. Install them using the c
 # Setup Github repo
 Next we'll create our own Github repo and copy a working CICD reference implementation into it.
 
-1. Create a github repo:https://docs.github.com/en/get-started/quickstart/create-a-repo 
+1. [Create a github repo](https://docs.github.com/en/get-started/quickstart/create-a-repo)
 1. Setup Git repo locally
 
 `
@@ -25,8 +25,10 @@ Next we'll create our own Github repo and copy a working CICD reference implemen
 	$ git init
 	$ git remote add origin $GIT_URL
 	$ git add .
-	$ git commit -m "initial commit"`
+	$ git commit -m "initial commit"
   
+`
+
 ## Copy CICD Reference implementation
 
 	$ mkdir devrel
