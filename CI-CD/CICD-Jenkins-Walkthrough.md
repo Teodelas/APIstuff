@@ -57,7 +57,21 @@ $ gcloud projects add-iam-policy-binding $PROJECT_ID \
 --role="roles/apigee.admin"
 ```
 *To use a different role, see roles available ![here](https://cloud.google.com/iam/docs/understanding-roles#apigee-roles) or create a [custom role](https://cloud.google.com/iam/docs/understanding-custom-roles) *
-1. Create a [key-file](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) so that the Service Account can be activated on a VM
+
+## Update Jenkins VM to use new service account and additional scopes
+The default service account and scopes must be updated in the Jenkins VM so that the API calls to Apigee complete successfully. More information on scopes can be found [here](https://cloud.google.com/compute/docs/access/create-enable-service-accounts-for-instances#changeserviceaccountandscopes) this is a [best practice](https://cloud.google.com/compute/docs/access/create-enable-service-accounts-for-instances#best_practices).
+
+```
+$ gcloud compute instances stop <vm-name> --zone=<vm-zone>
+$ gcloud compute instances set-service-account <vm-name> --service-account $SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com  --scopes cloud-platform --zone=<vm-zone>
+$ gcloud compute instances start <vm-name> --zone=<vm-zone>
+
+```
+
+## Optional: Use a Key File for authentication
+The maven plugin supports the use of a key-file if needed.
+
+1. Create a [key-file](https://cloud.google.com/iam/docs/creating-managing-service-account-keys). T
 ```
 $ gcloud iam service-accounts keys create ./jenkins-key-file.json \
 --iam-account=$SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com 
@@ -65,18 +79,8 @@ $ cat ./jenkins-key-file.json
 ```
 1. Copy the contents of the key-file your clipboard
 
-## Update IAM scopes assigned to Jenkins VM
-The scopes must be updated in the Jenkins VM so that the API calls to Apigee complete successfully. More information on scopes can be found [here](https://cloud.google.com/compute/docs/access/create-enable-service-accounts-for-instances#changeserviceaccountandscopes) 
+For the step below, make sure you're in the **Jenkins SSH terminal**
 
-```
-$ gcloud compute instances stop <vm-name> --zone=<vm-zone>
-$ gcloud compute instances set-service-account <vm-name> --scopes cloud-platform --zone=<vm-zone>
-$ gcloud compute instances start <vm-name> --zone=<vm-zone>
-
-```
-# Configure Jenkins
-For these steps, make sure you're in the **Jenkins SSH terminal**
-## Activate Service Account
 1. Create a key-file and paste the contents from clipboard
 ```
 $ touch ./jenkins-key-file.json
@@ -90,10 +94,9 @@ $ vi ./jenkins-key-file.json
 1. Press escape to exit insert mode. Type **:wq** to save and exit vi
 1. Verify the contents of the key-file
 `$ cat ./jenkins-key-file.json`
-1. Activate service account on Jenkins VM
-`$gcloud auth activate-service-account $SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com --key-file=./jenkins-key-file.json --project=$PROJECT_ID`
 
-## Add Plugins
+
+# Configure Jenkins
 1. Go to http://<jenkins ip / url>/pluginManager/
 1. Click on Available, and install the plugins below. 
     1. Pipeline
@@ -111,7 +114,7 @@ $ vi ./jenkins-key-file.json
 ## Configure global variables
 1. Go to http://<jenkins ip / url>/configure
 1. Scroll down to Global properties and check off Environment variables
-	1. Add **ID_File** as **/path-to-id-file.json**
+	1. Add **ID_File** as **/path-to-key-file.json**
 	3. Add **APIGEE_ENV, APIGEE_ORG, and APIGEE_URL** and set the values to your match your Apigee deployment
 
 ![jenkins-variables](./images/jenkins-variables.png)
@@ -179,4 +182,4 @@ with
 
 8. The status page will show the stages of the build and the result
 
-![Build Statu](./images/build-status.png)
+![Build Status](./images/build-status.png)
