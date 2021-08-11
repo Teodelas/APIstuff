@@ -3,7 +3,7 @@ info:
   title: Hipster Products API
   version: "1"
   description: Products API for Hipster Application
-host: apigeex-eval.dlhdemos.com
+host: apigeex-eval.dlhdemo.com
 basePath:
   /hipster-products-api
 schemes:
