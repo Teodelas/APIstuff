@@ -3,7 +3,7 @@ info:
   description: 'OpenAPI Specification for the Apigee mock target service endpoint.'
   version: 1.0.0
   title: Mock Target API
-host: https://apigeex-eval.dlhdemos.com/mock-target-api
+host: https://apigeex-eval.dlhdemo.com/mock-target-api
 externalDocs:
   description: API Documentation
   url: https://openweathermap.org/api
