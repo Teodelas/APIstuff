@@ -2,7 +2,7 @@
 swagger: '2.0'
 info:
   version: 20.0.321
-  title: External Data API
+  title: Tailored Brands API
 basePath: "/ctfrest/externaldata/v1"
 tags:
 - name: ExternalData
