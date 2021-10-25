@@ -1,5 +1,5 @@
-AUTH="Authorization: Bearer $(gcloud auth print-access-token)"
-PROJECT_ID="teodlh-apigeex"
+export AUTH="Authorization: Bearer $(gcloud auth print-access-token)"
+export PROJECT_ID="teodlh-apigeex"
 //Be careful the below doesn't conflict with MIG in 1st region
 export NEW_REGION_LOCATION="us-west2"
 export NETWORK_NAME=default
