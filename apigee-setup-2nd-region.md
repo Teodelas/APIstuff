@@ -1,6 +1,6 @@
 # Set Environment Variables
 
-//Be careful the below doesn't conflict with MIG in 1st region
+//Be careful the below doesn't conflict with MIG in 1st region  
 export AUTH="Authorization: Bearer $(gcloud auth print-access-token)"  
 export SERVICE_PROJECT_ID="teodlh-apigeex"  
 export HOST_PROJECT_ID="host-project"  
@@ -10,11 +10,11 @@ export MIG_NAME=apigee-mig-us-$NEW_REGION_LOCATION
 export VPC_SUBNET=default  
 
 
-//Get the internal IP address of the Apigee instances
+//Get the internal IP address of the Apigee instances  
 curl -X GET -H "$AUTH" \
   "https://apigee.googleapis.com/v1/organizations/$SERVICE_PROJECT_ID/instances"
 
-//Set APIGEE_ENDPOINT to the 2nd region's internal IP address from above.
+//Set APIGEE_ENDPOINT to the 2nd region's internal IP address from above.  
 export APIGEE_ENDPOINT=10.107.76.2
 
 # MIG Template
@@ -29,9 +29,9 @@ gcloud compute instance-templates create $MIG_NAME \
   --image-project debian-cloud --boot-disk-size 20GB \
   --metadata ENDPOINT=$APIGEE_ENDPOINT,startup-script-url=gs://apigee-5g-saas/apigee-envoy-proxy-release/latest/conf/startup-script.sh
 
-//If using a shared VPC
-Network should be:projects/<your Apigee Host Project>/global/networks/<your-shared-vpc>
-Subnet should be: projects/<your Apigee Host Project>/regions/<your-gcp-region>/subnetworks/<your-shared-subnet>
+//If using a shared VPC  
+Network should be:projects/<your Apigee Host Project>/global/networks/<your-shared-vpc>. 
+Subnet should be: projects/<your Apigee Host Project>/regions/<your-gcp-region>/subnetworks/<your-shared-subnet>. 
 gcloud compute instance-templates create $MIG_NAME \
   --project $SERVICE_PROJECT_ID \
   --region $NEW_REGION_LOCATION \
@@ -63,7 +63,7 @@ gcloud compute firewall-rules create allow-lb-to-apigee-mig-$NEW_REGION_LOCATION
   --project $SERVICE_PROJECT_ID --network $NETWORK_NAME --allow=tcp:443 \
   --source-ranges=130.211.0.0/22,35.191.0.0/16 --target-tags=gke-apigee-proxy
 
-//If using Shared VPC
+//If using Shared VPC  
 gcloud compute firewall-rules create allow-lb-to-apigee-mig-$NEW_REGION_LOCATION \
   --description "Allow incoming from GLB on TCP port 443 to Apigee Proxy" \
   --project $SERVICE_PROJECT_ID --network $NETWORK_NAME --allow=tcp:443 \
