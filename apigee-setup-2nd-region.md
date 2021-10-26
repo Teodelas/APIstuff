@@ -1,14 +1,13 @@
 # Set Environment Variables
 
 //Be careful the below doesn't conflict with MIG in 1st region
-export AUTH="Authorization: Bearer $(gcloud auth print-access-token)"
-
-export SERVICE_PROJECT_ID="teodlh-apigeex" 
-export HOST_PROJECT_ID="host-project" 
-export NEW_REGION_LOCATION="us-west2" 
-export NETWORK_NAME=default 
-export MIG_NAME=apigee-mig-us-$NEW_REGION_LOCATION 
-export VPC_SUBNET=default 
+export AUTH="Authorization: Bearer $(gcloud auth print-access-token)"  
+export SERVICE_PROJECT_ID="teodlh-apigeex"  
+export HOST_PROJECT_ID="host-project"  
+export NEW_REGION_LOCATION="us-west2"  
+export NETWORK_NAME=default  
+export MIG_NAME=apigee-mig-us-$NEW_REGION_LOCATION  
+export VPC_SUBNET=default  
 
 
 //Get the internal IP address of the Apigee instances
