@@ -31,19 +31,9 @@ Subnet should be: projects/<your Apigee Host Project>/regions/<your-gcp-region>/
 gcloud compute instance-templates create $MIG_NAME \
   --project $SERVICE_PROJECT_ID \
   --region $NEW_REGION_LOCATION \
+  --no-address \
   --network projects/$HOST_PROJECT_ID/global/networks/$NETWORK_NAME \
   --subnet projects/$HOST_PROJECT_ID/regions/$NEW_REGION_LOCATION/subnetworks/$VPC_SUBNET \
-  --tags=https-server,apigee-mig-proxy,gke-apigee-proxy \
-  --machine-type e2-medium --image-family debian-10 \
-  --image-project debian-cloud --boot-disk-size 20GB \
-  --metadata ENDPOINT=$APIGEE_ENDPOINT,startup-script-url=gs://apigee-5g-saas/apigee-envoy-proxy-release/latest/conf/startup-script.sh
-
-gcloud compute instance-templates create $MIG_NAME \
-  --project $SERVICE_PROJECT_ID \
-  --region $NEW_REGION_LOCATION \
-  --no-address \
-  --network $NETWORK_NAME \
-  --subnet $VPC_SUBNET \
   --tags=https-server,apigee-mig-proxy,gke-apigee-proxy \
   --machine-type e2-medium --image-family debian-10 \
   --image-project debian-cloud --boot-disk-size 20GB \
