@@ -1,4 +1,5 @@
 # Set Environment Variables
+
 //Be careful the below doesn't conflict with MIG in 1st region
 export AUTH="Authorization: Bearer $(gcloud auth print-access-token)"
 export SERVICE_PROJECT_ID="teodlh-apigeex"
@@ -17,6 +18,7 @@ curl -X GET -H "$AUTH" \
 export APIGEE_ENDPOINT=10.107.76.2
 
 # MIG Template
+
 gcloud compute instance-templates create $MIG_NAME \
   --project $SERVICE_PROJECT_ID \
   --region $NEW_REGION_LOCATION \
@@ -41,7 +43,9 @@ gcloud compute instance-templates create $MIG_NAME \
   --image-project debian-cloud --boot-disk-size 20GB \
   --metadata ENDPOINT=$APIGEE_ENDPOINT,startup-script-url=gs://apigee-5g-saas/apigee-envoy-proxy-release/latest/conf/startup-script.sh
 
+
 # Create MIG
+  
 gcloud compute instance-groups managed create $MIG_NAME \
   --project $SERVICE_PROJECT_ID --base-instance-name apigee-mig \
   --size 2 --template $MIG_NAME --region $NEW_REGION_LOCATION
