@@ -1,3 +1,4 @@
+# Set Environment Variables
 //Be careful the below doesn't conflict with MIG in 1st region
 export AUTH="Authorization: Bearer $(gcloud auth print-access-token)"
 export SERVICE_PROJECT_ID="teodlh-apigeex"
@@ -52,7 +53,7 @@ gcloud compute instance-groups managed set-autoscaling $MIG_NAME \
 gcloud compute instance-groups managed set-named-ports $MIG_NAME \
   --project $SERVICE_PROJECT_ID --region $NEW_REGION_LOCATION --named-ports https:443
 
-#Firewall Rules
+# Firewall Rules
 gcloud compute firewall-rules create allow-lb-to-apigee-mig-$NEW_REGION_LOCATION \
   --description "Allow incoming from GLB on TCP port 443 to Apigee Proxy" \
   --project $SERVICE_PROJECT_ID --network $NETWORK_NAME --allow=tcp:443 \
@@ -64,7 +65,7 @@ gcloud compute firewall-rules create allow-lb-to-apigee-mig-$NEW_REGION_LOCATION
   --project $SERVICE_PROJECT_ID --network $NETWORK_NAME --allow=tcp:443 \
   --source-ranges=130.211.0.0/22,35.191.0.0/16 --target-tags=gke-apigee-proxy
 
-#Add Backend Service to XLB
+# Add Backend Service to XLB
 gcloud compute backend-services add-backend apigee-proxy-backend \
   --project $SERVICE_PROJECT_ID --instance-group $MIG_NAME \
   --instance-group-region $NEW_REGION_LOCATION \
