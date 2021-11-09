@@ -1,5 +1,10 @@
 # Overview
+The setps below setup a 2nd MIG proxy traffic to a 2nd Apigee instance. The steps also update an existing XLB which has been provisioned as part of creating the 1st Apigee org. 
 ![Multi Region Architecture](./assets/multi-region-diagram.png)
+
+# Provision additional instance
+Follow the Apigee documentation to create a 2nd instance
+https://cloud.google.com/apigee/docs/api-platform/system-administration/multi-region
 
 # Set Environment Variables
 
