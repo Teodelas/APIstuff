@@ -1,3 +1,6 @@
+# Overview
+![Multi Region Architecture](./assets/multi-region-diagram.png)
+
 # Set Environment Variables
 
 //Be careful the below doesn't conflict with MIG in 1st region  
