@@ -1,0 +1,39 @@
+kubectl apply -f - <<EOF
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: "paymentservice"
+  namespace: payment
+spec:
+  selector:
+    matchLabels:
+      app: paymentservice
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        principals: ["teodlh-project.svc.id.goog/ns/checkout/sa/checkout"]
+    to:
+    - operation:
+        methods: ["GET"]
+EOF
+Above will be broken unless it's changed to POST
+
+The below prevents Ad service from working unless it's set to ALLOW
+kubectl apply -f - <<EOF
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: "adservice"
+  namespace: ad
+spec:
+  selector:
+    matchLabels:
+      app: adservice
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        principals: ["teodlh-project.svc.id.goog/ns/frontend/sa/frontend"]
+EOF
+
