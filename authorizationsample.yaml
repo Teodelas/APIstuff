@@ -37,3 +37,5 @@ spec:
         principals: ["teodlh-project.svc.id.goog/ns/frontend/sa/frontend"]
 EOF
 
+kubectl delete authorizationpolicy -n payment paymentservice
+kubectl delete authorizationpolicy -n ad adservice
