@@ -12,11 +12,11 @@
 
 # Troubleshooting
 ## Fix KVM Values
-export TOKEN=$(gcloud auth print-access-token)
-export APIGEE_ORG=teodlh-apigeex
-export APIGEE_ENV=eval
-export KVM_NAME=idpConfigIdentityProxy
-export API_HOSTNAME=apigeex-eval.dlhdemo.com
+    export TOKEN=$(gcloud auth print-access-token)
+    export APIGEE_ORG=teodlh-apigeex
+    export APIGEE_ENV=eval
+    export KVM_NAME=idpConfigIdentityProxy
+    export API_HOSTNAME=apigeex-eval.dlhdemo.com
 
 curl -X POST     -H "Content-Type: application/json"     -H "Authorization: Bearer $TOKEN"     -d '{"key": "idp.az.hostname", "value": "dev-xyz.okta.com"}'     "https://$API_HOSTNAME/kvm-admin/v1/organizations/$APIGEE_ORG/environments/$APIGEE_ENV/keyvaluemaps/$KVM_NAME/entries"
 
