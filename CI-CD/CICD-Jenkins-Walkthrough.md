@@ -62,9 +62,11 @@ $ gcloud projects add-iam-policy-binding $PROJECT_ID \
 The default service account and scopes must be updated in the Jenkins VM so that the API calls to Apigee complete successfully. More information on scopes can be found [here](https://cloud.google.com/compute/docs/access/create-enable-service-accounts-for-instances#changeserviceaccountandscopes) this is a [best practice](https://cloud.google.com/compute/docs/access/create-enable-service-accounts-for-instances#best_practices).
 
 ```
-$ gcloud compute instances stop <vm-name> --zone=<vm-zone>
-$ gcloud compute instances set-service-account <vm-name> --service-account $SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com  --scopes cloud-platform --zone=<vm-zone>
-$ gcloud compute instances start <vm-name> --zone=<vm-zone>
+export VMNAME=jenkins-1-vm
+export VMZONE=us-central1-a
+gcloud compute instances stop $VMNAME --zone=$VMZONE
+gcloud compute instances set-service-account $VMNAME --service-account $SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com  --scopes cloud-platform --zone=$VMZONE
+gcloud compute instances start $VMNAME --zone=$VMZONE
 
 ```
 
