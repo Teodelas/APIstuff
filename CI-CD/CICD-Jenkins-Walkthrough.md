@@ -1,3 +1,26 @@
+#TODO
+
+docker run \
+  -p 8081:8080 \
+  -e APIGEE_TOKEN="$(gcloud auth print-access-token)" \
+  -e APIGEE_ORG="teodlh-apigeex-342821" \
+  -e APIGEE_TEST_ENV="eval" \
+  -e APIGEE_PROD_ENV="prod" \
+  -e TEST_HOST="apigeex.dlhdemo.com" \
+  -e APIGEE_HOSTURL="https://apigeex.dlhdemo.com" \
+  -e GCP_SA_AUTH="token" \
+  -e API_VERSION="google" \
+  -e JENKINS_ADMIN_PASS="password" \
+  apigee/devrel-jenkins:latest
+  
+ Update plugins (docker will exit)
+ docker start
+ Create pipeline build
+ - Git repo: https://github.com/apigee/devrel.git
+ - script path: references/cicd-pipeline/ci-config/jenkins/Jenkinsfile
+ Start Build
+  
+
 # Deploy Jenkins and Configure Jenkins
 1. Deploy Jenkins from [GCP Marketplace](https://pantheon.corp.google.com/marketplace/product/click-to-deploy-images/jenkins)
 	1. A sample production scale ready deployment of Jenkins can be found [here](https://cloud.google.com/architecture/using-jenkins-for-distributed-builds-on-compute-engine)
