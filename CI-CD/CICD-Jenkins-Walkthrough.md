@@ -7,7 +7,6 @@ docker run \
   -e APIGEE_TEST_ENV="eval" \
   -e APIGEE_PROD_ENV="prod" \
   -e TEST_HOST="apigeex.dlhdemo.com" \
-  -e APIGEE_HOSTURL="https://apigeex.dlhdemo.com" \
   -e GCP_SA_AUTH="token" \
   -e API_VERSION="google" \
   -e JENKINS_ADMIN_PASS="password" \
