@@ -168,6 +168,12 @@ $ vi ./jenkins-key-file.json
 
 ![jenkins-variables](./images/jenkins-variables.png)
 
+## Configurie Jenkins credentials
+
+The Jenkinsfile provided expects a credentials object to exist:
+	APIGEE_CREDS = credentials('apigee')
+https://www.jenkins.io/doc/book/using/using-credentials/#adding-new-global-credentials 
+
 ## Configure Jenkinsfile 
 This configuration sets the maven profile to use Apigee X management API (GoogleAPI) and authenticate using an the IAM service account created previously
 1. In the GitHub repo, eidt the file /ci-config/jenkins/Jenkinsfile
