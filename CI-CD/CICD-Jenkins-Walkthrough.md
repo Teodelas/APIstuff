@@ -1,4 +1,4 @@
-#TODO
+#TODO w/ Token
 
 docker run \
   -p 8081:8080 \
@@ -18,6 +18,31 @@ docker run \
  - Git repo: https://github.com/apigee/devrel.git
  - script path: references/cicd-pipeline/ci-config/jenkins/Jenkinsfile
  Start Build
+ 
+ #TODO w/ credential file
+ 
+export SERVICE_ACCOUNT_ID=jenkins-apigee-service-acocunt
+export PROJECT_ID=teodlh-apigeex-342821
+export KEY_FILE_PATH=/tmp/keys/jenkins-key-file.json
+
+gcloud iam service-accounts keys create $KEY_FILE_PATH \
+--iam-account=$SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com 
+cat $KEY_FILE_PATH
+
+ docker run -d \
+  --name jenkinsv2 \
+  -p 8082:8080 \
+  -e APIGEE_TOKEN="$(gcloud auth print-access-token)" \
+  -e APIGEE_ORG="teodlh-apigeex-342821" \
+  -e APIGEE_TEST_ENV="eval" \
+  -e APIGEE_PROD_ENV="prod" \
+  -e TEST_HOST="apigeex.dlhdemo.com" \
+  -e GCP_SA_AUTH="vm-scope" \
+  -e API_VERSION="google" \
+  -e JENKINS_ADMIN_PASS="password" \
+  -e GOOGLE_APPLICATION_CREDENTIALS="$KEY_FILE_PATH" \
+  -v ${KEY_FILE_PATH}:${KEY_FILE_PATH}:ro \
+  apigee/devrel-jenkins:latest
   
 
 # Deploy Jenkins and Configure Jenkins
