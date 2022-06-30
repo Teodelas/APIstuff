@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  description: 'OpenAPI Specification for the Apigee mock target service endpoint.'
+  description: 'OpenAPI Specification for the Apigee airport service endpoint.'
   version: 1.0.0
   title: Aiports API
 host: apigeex.dlhdemo.com/airports-cicd/v1
@@ -13,7 +13,7 @@ paths:
   /airports:
     get:
       summary: Get a list of airports
-      operationId: Get a list of airports
+      operationId: getAirports
       description: Get a list of airports
       produces:
         - text/plain
