@@ -1,0 +1,43 @@
+swagger: '2.0'
+info:
+  description: 'OpenAPI Specification for the Apigee mock target service endpoint.'
+  version: 1.0.0
+  title: Aiports API
+host: apigeex.dlhdemo.com/airports-cicd/v1
+externalDocs:
+  description: API Documentation
+schemes:
+  - http
+  - https
+paths:
+  /airports:
+    get:
+      summary: Get a list of airports
+      operationId: Get a list of airports
+      description: Get a list of airports
+      produces:
+        - text/plain
+      responses:
+        '200':
+          description: Success
+  /airports/{airportCode}:
+    get:
+      operationId: GetAirportDetails
+      parameters: 
+        - in: path
+          name: airportCode
+          type: string
+          required: true
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/hipstershopProduct'
+      tags:
+        - ProductCatalogService
+definitions:
+  request-body:
+    properties:
+      replace-me:
+        type: object
+        description: 'Replace with request payload in application/json, application/x-www-form-urlencoded, or application/xml format.'
