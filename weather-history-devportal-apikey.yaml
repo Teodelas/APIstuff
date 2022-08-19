@@ -49,13 +49,6 @@ paths:
           schema:
             type: string
             default: Seattle, WA
-        - name: 'apikey'
-          in: header
-          description: |
-            Your API key.
-          schema:
-            type: string
-            default: 0eOhMp5fdH58KsxOXf04Agm0mTaQleqA9uhFaABd8obCBbXu
       # Expected responses for this operation:
       responses:
         # Response code
