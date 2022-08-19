@@ -13,11 +13,12 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 servers:
   - url: https://apigeex.dlhdemo.com/human-resources
-securityDefinitions:
-  ApiKeyAuth:
-    type: apiKey
-    in: query
-    name: apikey
+components:
+  securitySchemes:
+    ApiKeyAuth:        # arbitrary name for the security scheme
+      type: apiKey
+      in: query       # can be "header", "query" or "cookie"
+      name: apikey  # name of the header, query parameter or cookie
 security:
   - ApiKeyAuth: []
 paths:
