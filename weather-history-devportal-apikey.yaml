@@ -1,0 +1,185 @@
+# Example OpenAPI YAML to get you started quickly.
+# Note: YAML has indentation based coping.
+# Code completion support is available so start typing for
+# available options.
+# This example follows the recommendations of the API 
+# Improvement Proposals for common API patterns. Find more
+# at https://google.aip.dev/
+
+# Find the full OpenAPI reference at:
+# https://github.com/OAI/OpenAPI-Specification
+openapi: 3.0.3
+
+# This is your document metadata.
+info:
+  version: 1.0.0
+  title: Weather History by Station ID
+  description: An API for getting historical weather data. The data source is the NOAA CHCN datase. The GHCN-Daily is an integrated database of daily climate summaries from land surface stations across the globe, and is comprised of daily climate records from over 100,000 stations in 180 countries and territories, and includes some data from every year since 1763.
+
+# Servers where this API is hosted
+servers: 
+  - url: https://apigeex.dlhdemo.com
+
+components:
+  securitySchemes:
+    ApiKeyAuth:        # arbitrary name for the security scheme
+      type: apiKey
+      in: header       # can be "header", "query" or "cookie"
+      name: apikey  # name of the header, query parameter or cookie
+
+security:
+  - ApiKeyAuth: []
+
+# Describe your paths here
+paths:
+  # This is a endpoint path.
+  '/v1/weather-history/stations':
+    # This is an HTTP operation
+    get:
+      # Describe this verb here. Note: you can use markdown
+      summary: 'Find the IDs for weather stations located near a street address, landmark, or common name for a place.'
+      description: ''
+      # This is an array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        - name: near
+          in: query
+          description: |
+            A street address, landmark, or common name for a place 
+          schema:
+            type: string
+            default: Seattle, WA
+        - name: 'apikey'
+          in: header
+          description: |
+            Your API key.
+          schema:
+            type: string
+            default: 0eOhMp5fdH58KsxOXf04Agm0mTaQleqA9uhFaABd8obCBbXu
+      # Expected responses for this operation:
+      responses:
+        # Response code
+        '200':
+          description: Object with list of matching stations near the place that matches the search
+          # Response body content.
+          content:
+            # JSON response with a schema referenced from the  
+            # components object.
+            application/json:
+              schema:
+                type: object
+                properties:
+                  address:
+                    type: string
+                    description: The address or place that was used in the search.
+                  lat:
+                    type: "number"
+                    description: "The latitude of the matched place."
+                    example: 39.8560963
+                  lon:
+                    type: "number"
+                    description: "The longitude of the matched place."
+                    example: -104.6737376
+                  stations:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: "string"
+                          example: "US1CODN0073"
+                        name:
+                          type: "string"
+                          example: "DIA 1.0 NE"
+                        state:
+                          type: "string"
+                          example: "CO"
+                        lat:
+                          type: "number"
+                          example: 39.8665
+                        lon:
+                          type: "number"
+                          example: -104.6508
+                        hcn_crn_flag:
+                          type: "string"
+                          example: "HCN"
+                        distance:
+                          type: "number"
+                          example: 1.61
+        401:
+          description: "Unauthorized"
+        429:
+          description: "Quota violation, rate violation"
+        500:
+          description: "Server error"
+        default:
+          description: "a list of weather stations near the address"
+  '/v1/weather-history/stations/{station_id}/years/{year}/temp':
+    get:
+      summary: 'BigQuery - Get temperature data for a given station for a given year'
+      description: ''
+      parameters: 
+        - name: 'apikey'
+          in: header
+          description: 'Your API key'
+          required: true
+          schema:
+            type: string
+            default: your-api-key
+        - name: year
+          in: path
+          description: 'year'
+          required: true
+          schema:
+            type: string
+            default: year
+        - name: station_id
+          in: path
+          description: 'Weather station id, use .../stations to find it'
+          required: true
+          schema:
+            type: string
+            default: USW00023169
+      responses:
+        200:
+          description: "Successful response"
+        401:
+          description: "Unauthorized"
+        429:
+          description: "Quota violation, rate violation"
+        500:
+          description: "Server error"
+  '/v1/weather-history/stations/{station_id}/years/{year}/wind':
+    get:
+      summary: 'BigQuery - Get wind data for a given station for a given year'
+      description: ''
+      parameters: 
+        - name: 'apikey'
+          in: header
+          description: 'Your API key'
+          required: true
+          schema:
+            type: string
+            default: your-api-key
+        - name: year
+          in: path
+          description: 'year'
+          required: true
+          schema:
+            type: string
+            default: year
+        - name: station_id
+          in: path
+          description: 'Weather station id, use .../stations to find it'
+          required: true
+          schema:
+            type: string
+            default: USW00023169
+      responses:
+        200:
+          description: "Successful response"
+        401:
+          description: "Unauthorized"
+        429:
+          description: "Quota violation, rate violation"
+        500:
+          description: "Server error"
