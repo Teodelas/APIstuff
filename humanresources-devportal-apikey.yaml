@@ -134,37 +134,3 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-components:
-  schemas:
-    Employee:
-      allOf:
-        - $ref: '#/components/schemas/NewEmployee'
-        - type: object
-          required:
-          - id
-          properties:
-            id:
-              type: integer
-              format: int64
-
-    NewEmployee:
-      type: object
-      required:
-        - name  
-      properties:
-        name:
-          type: string
-        tag:
-          type: string    
-
-    Error:
-      type: object
-      required:
-        - code
-        - message
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
