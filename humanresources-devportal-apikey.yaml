@@ -1,4 +1,5 @@
 openapi: "3.0.0"
+
 info:
   version: 3.0.0
   title: Human Resources
@@ -13,14 +14,17 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 servers:
   - url: https://apigeex.dlhdemo.com/human-resources
+  
 components:
   securitySchemes:
     ApiKeyAuth:        # arbitrary name for the security scheme
       type: apiKey
       in: query       # can be "header", "query" or "cookie"
       name: apikey  # name of the header, query parameter or cookie
+
 security:
   - ApiKeyAuth: []
+  
 paths:
   /employees:
     get:
