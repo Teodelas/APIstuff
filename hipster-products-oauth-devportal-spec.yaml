@@ -49,14 +49,14 @@ components:
       description: "OAuth API"
       flows:
         authorizationCode:
-          authorizationUrl: "https://apigeex-eval.dlhdemo.com/v1/oauth20/authorize"
-          tokenUrl: "https://apigeex-eval.dlhdemo.com/v1/oauth20/token"
+          authorizationUrl: "https://apigeex.dlhdemo.com/v1/oauth20/authorize"
+          tokenUrl: "https://apigeex.dlhdemo.com/v1/oauth20/token"
           scopes:
             offline_access: "offline_access"
             profile: "profile"
             openid: "openid"
         clientCredentials:
-          tokenUrl: "https://apigeex-eval.dlhdemo.com/v1/oauth20/token"
+          tokenUrl: "https://apigeex.dlhdemo.com/v1/oauth20/token"
           scopes:
             customScope: "Custom Scope"
   schemas:
