@@ -56,7 +56,7 @@ components:
             profile: "profile"
             openid: "openid"
         clientCredentials:
-          tokenUrl: "https://apigeex.dlhdemo.com/v1/oauth20/token"
+          tokenUrl: "https://apigeex.dlhdemo.com/oauth-cc-hipster/token"
           scopes:
             customScope: "Custom Scope"
   schemas:
