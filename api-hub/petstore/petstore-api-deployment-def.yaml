@@ -1,0 +1,17 @@
+apiVersion: apigeeregistry/v1
+kind: Deployment
+metadata:
+  name: prod
+  parent: apis/petstore
+  labels:
+    apihub-gateway: apihub-google-cloud-api-gateway
+  annotations:
+    apihub-external-channel-name: ""
+data:
+  displayName: Production
+  description: The hosted swagger file for Petstore Open API Spec
+  apiSpecRevision: v1/specs/openapi@latest
+  endpointURI: https://petstore.swagger.io/
+  externalChannelURI: https://petstore.swagger.io/
+  intendedAudience: Public
+  accessGuidance: https://petstore.swagger.io/
