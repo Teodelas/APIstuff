@@ -1,0 +1,9 @@
+apiVersion: apigeeregistry/v1
+kind: Version
+metadata:
+  name: v1
+  parent: apis/petstore
+data:
+  displayName: v1
+  description: Initial petstore API
+  state: concept
