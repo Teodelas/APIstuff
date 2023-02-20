@@ -1,0 +1,18 @@
+kind: API
+metadata:
+  name: petstore
+  labels:
+    apihub-business-unit: example
+    apihub-lifecycle: concept
+    apihub-style: apihub-openapi
+    apihub-target-users: partner_public
+    apihub-team: example
+  annotations:
+    apihub-primary-contact: user@gmail.com
+    apihub-primary-contact-description: api design owner
+data:
+  displayName: Petstore API
+  description: Petstore API sample from the OAS Github repo
+  #Not working#
+  recommendedDeployment: prod
+  recommendedVersion: v1
