@@ -1,3 +1,4 @@
+apiVersion: apigeeregistry/v1
 kind: API
 metadata:
   name: petstore
@@ -13,6 +14,5 @@ metadata:
 data:
   displayName: Petstore API
   description: Petstore API sample from the OAS Github repo
-  #Not working#
   recommendedDeployment: prod
   recommendedVersion: v1
