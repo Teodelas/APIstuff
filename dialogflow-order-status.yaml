@@ -3,7 +3,7 @@ info:
   description: 'Check Order Status with Petty Ellis.'
   version: 1.0.0
   title: Check Order Status with Perry Ellis
-host: https://34.111.141.177.nip.io
+host: 34.111.141.177.nip.io
 externalDocs:
   description: API Documentation
 schemes:
