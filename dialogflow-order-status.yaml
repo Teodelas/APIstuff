@@ -1,0 +1,34 @@
+swagger: '2.0'
+info:
+  description: 'Check Order Status with Petty Ellis.'
+  version: 1.0.0
+  title: Check Order Status with Perry Ellis
+host: https://34.111.141.177.nip.io
+externalDocs:
+  description: API Documentation
+schemes:
+  - http
+  - https
+paths:
+  /orderstatus:
+    get:
+      summary: View order status
+      operationId: View orer status
+      description: View order status
+      produces:
+        - text/plain
+      parameters:
+        - name: order_number
+          in: query
+          description: Your user name.
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Success
+definitions:
+  request-body:
+    properties:
+      replace-me:
+        type: object
+        description: 'Replace with request payload in application/json, application/x-www-form-urlencoded, or application/xml format.'
