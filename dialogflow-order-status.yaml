@@ -1,16 +1,16 @@
 swagger: '2.0'
 info:
-  description: 'Check Order Status with Petty Ellis.'
+  description: 'Check Order Status with Sheetz.'
   version: 1.0.0
-  title: Check Order Status with Perry Ellis
-host: 34.111.141.177.nip.io
+  title: Check Order Status with Sheetz
+host: apigeex.dlhdemo.com
 externalDocs:
   description: API Documentation
 schemes:
   - http
   - https
 paths:
-  /orderstatus:
+  /order-status:
     get:
       summary: View order status
       operationId: View orer status
