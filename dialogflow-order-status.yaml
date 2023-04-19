@@ -20,8 +20,8 @@ paths:
       parameters:
         - name: order_number
           in: query
-          description: Your user name.
-          required: false
+          description: Your Sheetz order number.
+          required: true
           type: integer
       responses:
         '200':
