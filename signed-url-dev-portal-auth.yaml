@@ -10,7 +10,7 @@ schemes:
   - http
   - https
 basePath:
-  /mock-target-api
+  /signed-url
 securityDefinitions:
   ApiKeyAuth:
     type: apiKey
