@@ -10,7 +10,7 @@ schemes:
   - http
   - https
 paths:
-  /signed-url:
+  /signed-url/download:
     get:
       summary: Get signed url used to upload data
       operationId: Get signed url
