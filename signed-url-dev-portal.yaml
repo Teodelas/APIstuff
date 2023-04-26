@@ -10,9 +10,33 @@ schemes:
   - http
   - https
 paths:
-  /signed-url/download:
+  /signed-url/upload:
     get:
       summary: Get signed url used to upload data
+      operationId: Get signed url
+      description: Get signed url
+      produces:
+        - text/plain
+      parameters:
+        - name: bucket
+          in: query
+          description: GCP storage bucket
+          required: true
+          type: string
+          default: apigee-signedurl-bucket-91c70179
+      parameters:
+        - name: object
+          in: query
+          description: name of object
+          required: true
+          type: string
+          default: mydata.zip
+      responses:
+        '200':
+          description: Success
+  /signed-url/download:
+    get:
+      summary: Get signed url used to download data
       operationId: Get signed url
       description: Get signed url
       produces:
