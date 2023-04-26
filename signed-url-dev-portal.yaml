@@ -24,7 +24,6 @@ paths:
           required: true
           type: string
           default: apigee-signedurl-bucket-91c70179
-      parameters:
         - name: object
           in: query
           description: name of object
@@ -48,7 +47,6 @@ paths:
           required: true
           type: string
           default: apigee-signedurl-bucket-91c70179
-      parameters:
         - name: object
           in: query
           description: name of object
