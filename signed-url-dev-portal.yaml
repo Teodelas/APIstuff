@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  description: 'Check Upload URL.'
+  description: 'Get Upload URL.'
   version: 1.0.0
   title: Get Signed URL to upload data to Omny Health
 host: apigeex.dlhdemo.com
