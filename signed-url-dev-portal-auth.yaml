@@ -1,0 +1,73 @@
+swagger: '2.0'
+info:
+  description: 'Check Order Status with Sheetz.'
+  version: 1.0.0
+  title: Get Signed URL
+host: apigeex.dlhdemo.com
+externalDocs:
+  description: API Documentation
+schemes:
+  - http
+  - https
+basePath:
+  /mock-target-api
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    in: query
+    name: apikey
+security:
+  - ApiKeyAuth: []
+paths:
+  /upload:
+    get:
+      summary: Get signed url used to upload data
+      operationId: Get signed url
+      description: Get signed url
+      produces:
+        - text/plain
+      parameters:
+        - name: bucket
+          in: query
+          description: GCP storage bucket
+          required: true
+          type: string
+          default: apigee-signedurl-bucket-91c70179
+        - name: object
+          in: query
+          description: name of object
+          required: true
+          type: string
+          default: mydata.zip
+      responses:
+        '200':
+          description: Success
+  /download:
+    get:
+      summary: Get signed url used to download data
+      operationId: Get signed url
+      description: Get signed url
+      produces:
+        - text/plain
+      parameters:
+        - name: bucket
+          in: query
+          description: GCP storage bucket
+          required: true
+          type: string
+          default: apigee-signedurl-bucket-91c70179
+        - name: object
+          in: query
+          description: name of object
+          required: true
+          type: string
+          default: mydata.zip
+      responses:
+        '200':
+          description: Success
+definitions:
+  request-body:
+    properties:
+      replace-me:
+        type: object
+        description: 'Replace with request payload in application/json, application/x-www-form-urlencoded, or application/xml format.'
