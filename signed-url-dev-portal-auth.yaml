@@ -1,8 +1,8 @@
 swagger: '2.0'
 info:
-  description: 'Check Order Status with Sheetz.'
+  description: 'Get signed URL to download data from Omny Health.'
   version: 1.0.0
-  title: Get Signed URL
+  title: Get Download URL
 host: apigeex.dlhdemo.com
 externalDocs:
   description: API Documentation
