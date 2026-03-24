@@ -1,3 +1,12 @@
+# --- Permissions ---
+#gcloud organizations add-iam-policy-binding [YOUR_ORG_ID] \
+  #--member="serviceAccount:[svc-account]@[project-id].iam.gserviceaccount.com" \
+  #--role="roles/serviceusage.serviceUsageConsumer"
+  
+#Assign Group Reader to service account.
+#https://knowledge.workspace.google.com/admin/users/assign-specific-admin-roles#service-account 
+#include upn: [svc-account]@[project-id].iam.gserviceaccount.com
+  
 # --- Configuration ---
 PROJECT_ID=""
 GROUP_KEY="" #group-name@suffix
