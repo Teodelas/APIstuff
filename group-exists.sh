@@ -6,6 +6,9 @@
 #Assign Group Reader to service account.
 #https://knowledge.workspace.google.com/admin/users/assign-specific-admin-roles#service-account 
 #include upn: [svc-account]@[project-id].iam.gserviceaccount.com
+
+#Impersonate service account
+#gcloud auth application-default login --impersonate-service-account=<svc_account>@<project-id>.iam.gserviceaccount.com
   
 # --- Configuration ---
 PROJECT_ID=""
